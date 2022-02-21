@@ -27,7 +27,7 @@ export class Branch{
     this.currentY += this.gapY;
     
     ctx.moveTo(this.startX, this.startY);
-    ctx.lineTo(this.endX, this.endY);
+    ctx.lineTo(this.currentX, this.currentY);
     
     if (this.lineWidth < 3) {
       ctx.lineWidth = 0.5;
