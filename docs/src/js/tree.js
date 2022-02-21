@@ -1,5 +1,5 @@
 import { Branch } from './branch.js';
-import { TREE_LENGTH, TREE_DEPTH } from './config.js';
+import { TREE_DEPTH } from './config.js';
 
 export class Tree {
   constructor(ctx, posX, posY) {
