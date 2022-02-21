@@ -13,6 +13,8 @@ class App {
   
     // 화면 크기 재조정시 이벤트 추가
     window.addEventListener('resize', this.resize.bind(this), false);
+    window.addEventListener('click', this.click.bind(this), false);
+    
   	this.resize();
     
     new Tree(this.ctx, this.stageWidth / 2, this.stageHeight);
@@ -30,6 +32,11 @@ class App {
 
     // 리사이즈시 캔버스를 비워줌
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
+  }
+  
+  click(event){
+    const { clientX } = event;
+    new Tree(this.ctx, clientX, this.stageHeight);
   }
 }
 
