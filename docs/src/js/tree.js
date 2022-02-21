@@ -37,7 +37,7 @@ export class Tree {
     this.createBranch(endX, endY, angle + this.random(15, 23), nextDepth);
   }
 
-  draw(ctx) {
+  draw() {
     if(this.cntDepth === this.depth){ cancelAnimationFrame(this.animation); }
     
     for (let i = this.cntDepth; i < this.branches.length; i++) {
