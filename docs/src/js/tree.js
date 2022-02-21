@@ -24,7 +24,7 @@ export class Tree {
   createBranch(startX, startY, angle, depth) {
     if (depth === this.depth) return;
     
-    const len = depth === 0 ? this.random(10, 13) : this.random(0, 11);
+    const len = depth === 0 ? this.random(8, 10) : this.random(0, 9);
     const depthConverse = this.depth - depth;
     
     const endX = startX + this.cos(angle) * len * depthConverse;
