@@ -1,3 +1,5 @@
+import { Tree } from './tree.js';
+
 class App {
   constructor() {
     // 캔버스 생성 후 랜더링
@@ -12,6 +14,8 @@ class App {
     // 화면 크기 재조정시 이벤트 추가
     window.addEventListener('resize', this.resize.bind(this), false);
   	this.resize();
+    
+    new Tree(this.ctx, this.stageWidth / 2, this.stageHeight);
   }
 
   resize() {
