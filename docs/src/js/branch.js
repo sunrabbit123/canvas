@@ -1,4 +1,4 @@
-import { TREE_LINE_COLOR, LINE_WIDTH } from './config.js';
+import { TREE_LINE_COLOR } from './config.js';
 
 export class Branch{
   constructor(startX, startY, endX, endY, lineWidth){
@@ -6,11 +6,25 @@ export class Branch{
     this.startY = startY;
     this.endX = endX;
     this.endY = endY;
+    
     this.color = TREE_LINE_COLOR;
     this.lineWidth = lineWidth;
+    this.frame = 10;
+    this.cntFrame = 0;
+    
+    this.gapX = (this.endX - this.startX) / this.frame;
+    this.gapY = (this.endY - this.startY) / this.frame;
+    
+    this.currentX = this.startX;
+    this.currentY = this.startY;
   }
   draw(ctx) {
+    if (this.cntFrame === this.frame) return true;
+
     ctx.beginPath();
+    
+    this.currentX += this.gapX;
+    this.currentY += this.gapY;
     
     ctx.moveTo(this.startX, this.startY);
     ctx.lineTo(this.endX, this.endY);
@@ -30,5 +44,9 @@ export class Branch{
     
     ctx.stroke();
     ctx.closePath();
+    
+    this.cntFrame++;
+    
+    return false;
   }
 }
