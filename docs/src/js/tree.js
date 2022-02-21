@@ -1,4 +1,5 @@
 import { Branch } from './branch.js';
+import { TREE_LENGTH } from './config.js';
 
 export class Tree {
   constructor(ctx, posX, posY) {
@@ -16,10 +17,12 @@ export class Tree {
   }
 
   createBranch(startX, startY) {
-    // 가지 생성
+    this.branches.push(new Branch(startX, startY, startX, startY - TREE_LENGTH)); 
   }
 
   draw(ctx) {
-    // 가지들을 캔버스에 draw
+    this.branches.map((branch) => {
+      branch.draw(ctx);
+    });
   }
 }
