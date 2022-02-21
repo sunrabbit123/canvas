@@ -6,9 +6,10 @@ class App {
 
     // context 생성
     this.ctx = this.canvas.getContext('2d');
-    // 레티나 디스플레이에서도 제대로 보이기 위해
+    // 레티나 디스플레이에서의 화면 비율 조정
     this.pixelRatio = window.devicePixelRatio > 1 ? 2 : 1;
-
+  
+    // 화면 크기 재조정시 이벤트 추가
     window.addEventListener('resize', this.resize.bind(this), false);
   	this.resize();
   }
