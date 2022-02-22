@@ -1,34 +1,46 @@
-import { TREE_LINE_COLOR } from './config.js';
+import { FRAME } from "./config.js";
 
-export class Branch{
-  constructor(startX, startY, endX, endY, lineWidth){
+export class Branch {
+  constructor(startX, startY, endX, endY, lineWidth, color) {
     this.startX = startX;
     this.startY = startY;
     this.endX = endX;
     this.endY = endY;
-    
-    this.color = TREE_LINE_COLOR;
+    this.color = color;
     this.lineWidth = lineWidth;
-    this.frame = 10;
+    this.frame = FRAME;
     this.cntFrame = 0;
-    
+
     this.gapX = (this.endX - this.startX) / this.frame;
     this.gapY = (this.endY - this.startY) / this.frame;
-    
+
     this.currentX = this.startX;
     this.currentY = this.startY;
+
+    this.setColor();
   }
+  setColor() {
+    if (this.color !== "#000000") {
+      if (this.lineWidth >= 10) {
+        this.color = "#FFFFFF";
+      } else {
+        const num = (~~((this.lineWidth / 10) * 15)).toString(16);
+        this.color = this.color.replace(/0/gi, num);
+      }
+    }
+  }
+
   draw(ctx) {
     if (this.cntFrame === this.frame) return true;
 
     ctx.beginPath();
-    
+
     this.currentX += this.gapX;
     this.currentY += this.gapY;
-    
+
     ctx.moveTo(this.startX, this.startY);
     ctx.lineTo(this.currentX, this.currentY);
-    
+
     if (this.lineWidth < 3) {
       ctx.lineWidth = 0.5;
     } else if (this.lineWidth < 7) {
@@ -38,15 +50,15 @@ export class Branch{
     } else {
       ctx.lineWidth = this.lineWidth;
     }
-    
+
     ctx.fillStyle = this.color;
     ctx.strokeStyle = this.color;
-    
+
     ctx.stroke();
     ctx.closePath();
-    
+
     this.cntFrame++;
-    
+
     return false;
   }
 }
