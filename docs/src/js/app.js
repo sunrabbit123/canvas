@@ -8,6 +8,7 @@ class App {
 
     // context 생성
     this.ctx = this.canvas.getContext("2d");
+    this.ctx.globalCompositeOperation = "copy";
     // 레티나 디스플레이에서의 화면 비율 조정
     this.pixelRatio = window.devicePixelRatio > 1 ? 2 : 1;
 
