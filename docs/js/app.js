@@ -18,7 +18,7 @@ class App {
 
     this.resize();
 
-    new Tree(this.ctx, this.stageWidth / 2, this.stageHeight);
+    this.setBtn();
   }
 
   resize() {
@@ -34,10 +34,37 @@ class App {
     // 리사이즈시 캔버스를 비워줌
     this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
   }
+  setBtn() {
+    this.nightBtn = document.querySelector(".night");
+    this.dayBtn = document.querySelector(".day");
+    this.day = true;
+    this.nightBtn.addEventListener(
+      "click",
+      this.nightBtnHandler.bind(this),
+      false,
+    );
+    this.dayBtn.addEventListener("click", this.dayBtnHandler.bind(this), false);
+  }
+  nightBtnHandler() {
+    console.log(2);
+    this.resize();
+    this.dayBtn.classList.add("show");
+    this.nightBtn.classList.remove("show");
+    document.body.classList.add("black");
+    this.day = false;
+  }
 
+  dayBtnHandler() {
+    console.log(3);
+    this.resize();
+    this.dayBtn.classList.remove("show");
+    this.nightBtn.classList.add("show");
+    document.body.classList.remove("black");
+    this.day = true;
+  }
   click(event) {
     const { clientX } = event;
-    new Tree(this.ctx, clientX, this.stageHeight);
+    new Tree(this.ctx, clientX, this.stageHeight, this.day);
   }
 }
 

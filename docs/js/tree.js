@@ -7,13 +7,20 @@ import {
 } from "./config.js";
 
 export class Tree {
-  constructor(ctx, posX, posY) {
+  constructor(ctx, posX, posY, isDay) {
     this.ctx = ctx;
     this.posX = posX;
     this.posY = posY;
     this.branches = []; // 가지들을 담을 공간
     this.depth = TREE_DEPTH;
-    this.color = TREE_COLOR[~~(Math.random() * TREE_COLOR.length)];
+
+    this.isDay = isDay;
+    if (this.isDay) {
+      this.color = "#000000";
+    } else {
+      this.color = TREE_COLOR[~~(Math.random() * TREE_COLOR.length)];
+    }
+
     this.cntDepth = 0;
     this.animation = null;
 
