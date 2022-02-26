@@ -15,6 +15,7 @@ body {
 }
 
 canvas {
+  position: absolute;
   width: 100%;
   height: 100%;
 }
@@ -33,6 +34,7 @@ canvas {
 
 .btnBox {
   position: absolute;
+  z-index: 3;
   right: 3em;
   top: 3em;
 }
@@ -49,4 +51,8 @@ canvas {
 .night span,
 .day span {
   font-size: 4.5em;
+}
+
+#snow {
+  z-index: 2;
 }

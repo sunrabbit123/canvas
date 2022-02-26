@@ -5,7 +5,7 @@ import {
   BASE_OF_TREE_LEN,
   TREE_LEN,
 } from "./config.js";
-
+import { random } from "./util.js";
 export class Tree {
   constructor(ctx, posX, posY, isDay) {
     this.ctx = ctx;
@@ -40,8 +40,8 @@ export class Tree {
 
     const len =
       depth === 0
-        ? this.random(BASE_OF_TREE_LEN[0], BASE_OF_TREE_LEN[1])
-        : this.random(TREE_LEN[0], TREE_LEN[1]);
+        ? random(BASE_OF_TREE_LEN[0], BASE_OF_TREE_LEN[1])
+        : random(TREE_LEN[0], TREE_LEN[1]);
 
     const depthConverse = this.depth - depth;
 
@@ -53,8 +53,8 @@ export class Tree {
       new Branch(startX, startY, endX, endY, depthConverse, this.color),
     );
 
-    this.createBranch(endX, endY, angle - this.random(15, 23), nextDepth);
-    this.createBranch(endX, endY, angle + this.random(15, 23), nextDepth);
+    this.createBranch(endX, endY, angle - random(15, 23), nextDepth);
+    this.createBranch(endX, endY, angle + random(15, 23), nextDepth);
   }
 
   draw() {
@@ -84,8 +84,5 @@ export class Tree {
   }
   degToRad(angle) {
     return (angle / 180.0) * Math.PI;
-  }
-  random(min, max) {
-    return min + Math.floor(Math.random() * (max - min + 1));
   }
 }
