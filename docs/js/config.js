@@ -13,3 +13,4 @@ export const TREE_COLOR = [
 
 export const BLACK_COLOR = "#000000";
 export const WHITE_COLOR = "#FFFFFF";
+export const PARTICLE_ON_SCREEN = 240;

@@ -1,8 +1,8 @@
 import { random } from "./util.js";
+import { PARTICLE_ON_SCREEN } from "./config.js";
 
 export class Snow {
   constructor(ctx, width, height, isDay) {
-    this.particlesOnScreen = 245;
     this.particlesArray = [];
     this.ctx = ctx;
     this.width = width;
@@ -13,7 +13,7 @@ export class Snow {
     this.createSnowFlakes();
   }
   createSnowFlakes() {
-    for (var i = 0; i < this.particlesOnScreen; i++) {
+    for (var i = 0; i < PARTICLE_ON_SCREEN; i++) {
       this.particlesArray.push({
         x: Math.random() * this.width,
         y: Math.random() * this.height,
@@ -25,40 +25,37 @@ export class Snow {
     }
   }
   drawSnowFlakes() {
-    for (var i = 0; i < this.particlesArray.length; i++) {
+    this.particlesArray.map((particle) => {
       var gradient = this.ctx.createRadialGradient(
-        this.particlesArray[i].x,
-        this.particlesArray[i].y,
+        particle.x,
+        particle.y,
         0,
-        this.particlesArray[i].x,
-        this.particlesArray[i].y,
-        this.particlesArray[i].radius,
+        particle.x,
+        particle.y,
+        particle.radius,
       );
 
       if (this.isDay) {
-        gradient.addColorStop(
-          0,
-          `rgba(0, 0, 0, ${this.particlesArray[i].opacity})`,
-        );
+        gradient.addColorStop(0, `rgba(0, 0, 0, ${particle.opacity})`);
       } else {
         gradient.addColorStop(
           0,
-          "rgba(255, 255, 255," + this.particlesArray[i].opacity + ")",
+          "rgba(255, 255, 255," + particle.opacity + ")",
         ); // white
         gradient.addColorStop(
           0.8,
-          "rgba(210, 236, 242," + this.particlesArray[i].opacity + ")",
+          "rgba(210, 236, 242," + particle.opacity + ")",
         ); // bluish
         gradient.addColorStop(
           1,
-          "rgba(237, 247, 249," + this.particlesArray[i].opacity + ")",
+          "rgba(237, 247, 249," + particle.opacity + ")",
         ); // lighter bluish
       }
       this.ctx.beginPath();
       this.ctx.arc(
-        this.particlesArray[i].x,
-        this.particlesArray[i].y,
-        this.particlesArray[i].radius,
+        particle.x,
+        particle.y,
+        particle.radius,
         0,
         Math.PI * 2,
         false,
@@ -66,19 +63,21 @@ export class Snow {
 
       this.ctx.fillStyle = gradient;
       this.ctx.fill();
-    }
+    });
   }
 
   moveSnowFlakes() {
-    for (var i = 0; i < this.particlesArray.length; i++) {
-      this.particlesArray[i].x += this.particlesArray[i].speedX;
-      this.particlesArray[i].y += this.particlesArray[i].speedY;
+    this.particlesArray = this.particlesArray.map((particle) => {
+      particle.x += particle.speedX;
+      particle.y += particle.speedY;
 
-      if (this.particlesArray[i].y > this.height) {
-        this.particlesArray[i].x = Math.random() * this.width * 1.5;
-        this.particlesArray[i].y = -50;
+      if (particle.y > this.height) {
+        particle.x = Math.random() * this.width * 1.5;
+        particle.y = -50;
       }
-    }
+
+      return particle;
+    });
   }
   updateSnowFall() {
     this.ctx.clearRect(0, 0, this.width, this.height);

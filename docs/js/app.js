@@ -16,7 +16,7 @@ class App {
     this.snowCanvas.classList.add("snow");
 
     this.snowCtx = this.snowCanvas.getContext("2d");
-    this.snowCtx.globalCompositeOperation = "copy";
+    this.snowCtx.globalCompositeOperation = "hard-light";
 
     document.body.appendChild(this.snowCanvas);
     // context 생성
