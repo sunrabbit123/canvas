@@ -1,13 +1,14 @@
 import { random } from "./util.js";
 
 export class Snow {
-  constructor(ctx, width, height) {
+  constructor(ctx, width, height, isDay) {
     this.particlesOnScreen = 245;
     this.particlesArray = [];
     this.ctx = ctx;
     this.width = width;
     this.height = height;
-
+    this.isDay = isDay;
+    console.log(isDay);
     setInterval(this.updateSnowFall.bind(this), 50);
     this.createSnowFlakes();
   }
@@ -34,19 +35,25 @@ export class Snow {
         this.particlesArray[i].radius,
       );
 
-      gradient.addColorStop(
-        0,
-        "rgba(255, 255, 255," + this.particlesArray[i].opacity + ")",
-      ); // white
-      gradient.addColorStop(
-        0.8,
-        "rgba(210, 236, 242," + this.particlesArray[i].opacity + ")",
-      ); // bluish
-      gradient.addColorStop(
-        1,
-        "rgba(237, 247, 249," + this.particlesArray[i].opacity + ")",
-      ); // lighter bluish
-
+      if (this.isDay) {
+        gradient.addColorStop(
+          0,
+          `rgba(0, 0, 0, ${this.particlesArray[i].opacity})`,
+        );
+      } else {
+        gradient.addColorStop(
+          0,
+          "rgba(255, 255, 255," + this.particlesArray[i].opacity + ")",
+        ); // white
+        gradient.addColorStop(
+          0.8,
+          "rgba(210, 236, 242," + this.particlesArray[i].opacity + ")",
+        ); // bluish
+        gradient.addColorStop(
+          1,
+          "rgba(237, 247, 249," + this.particlesArray[i].opacity + ")",
+        ); // lighter bluish
+      }
       this.ctx.beginPath();
       this.ctx.arc(
         this.particlesArray[i].x,

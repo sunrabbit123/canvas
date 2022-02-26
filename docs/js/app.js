@@ -47,12 +47,16 @@ class App {
 
     // 리사이즈시 캔버스를 비워줌
     this.forestCtx.clearRect(0, 0, this.stageWidth, this.stageHeight);
-    new Snow(this.snowCtx, this.snowCanvas.width, this.snowCanvas.height);
+    new Snow(
+      this.snowCtx,
+      this.snowCanvas.width,
+      this.snowCanvas.height,
+      this.isDay,
+    );
   }
   setBtn() {
     this.nightBtn = document.querySelector(".night");
     this.isDayBtn = document.querySelector(".day");
-    this.isDay = true;
     this.nightBtn.addEventListener(
       "click",
       this.nightBtnHandler.bind(this),
@@ -65,19 +69,19 @@ class App {
     );
   }
   nightBtnHandler() {
+    this.isDay = false;
     this.resize();
     this.isDayBtn.classList.add("show");
     this.nightBtn.classList.remove("show");
     document.body.classList.add("black");
-    this.isDay = false;
   }
 
   dayBtnHandler() {
+    this.isDay = true;
     this.resize();
     this.isDayBtn.classList.remove("show");
     this.nightBtn.classList.add("show");
     document.body.classList.remove("black");
-    this.isDay = true;
   }
   click(event) {
     const { clientX } = event;
