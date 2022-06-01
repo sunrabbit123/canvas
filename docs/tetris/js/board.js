@@ -1,6 +1,8 @@
-import { ROWS, COLS } from "./constants";
-
 class Board {
+  constructor(COLS, ROWS) {
+    this.COLS = COLS;
+    this.ROWS = ROWS;
+  }
   grid;
 
   reset() {
@@ -8,6 +10,8 @@ class Board {
   }
 
   getEmptyBoard() {
-    return Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+    return Array.from({ length: this.ROWS }, () => Array(this.COLS).fill(0));
   }
 }
+
+export { Board };

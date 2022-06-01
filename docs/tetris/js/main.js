@@ -1,5 +1,5 @@
-import { COLS, BLOCK_SIZE, ROWS } from "./constants";
-import { Board } from "./board";
+import { COLS, BLOCK_SIZE, ROWS } from "./constants.js";
+import { Board } from "./board.js";
 
 const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");
