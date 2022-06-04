@@ -30,6 +30,33 @@ class Board {
   notOccupied(x, y) {
     return this.grid[y] && this.grid[y][x] === 0;
   }
+  drop() {
+    let p = moves[KEY.DOWN](this.piece);
+    if (this.valid(p)) {
+      this.piece.move(p);
+    } else {
+      this.freeze();
+      this.clearLines();
+      if (this.piece.y === 0) {
+        // Game over
+        return false;
+      }
+      this.piece = this.next;
+      this.piece.ctx = this.ctx;
+      this.piece.setStartingPosition();
+      this.getNewPiece();
+    }
+    return true;
+  }
+  freeze() {
+    this.piece.shape.forEach((row, y) => {
+      row.forEach((value, x) => {
+        if (value > 0) {
+          this.grid[y + this.piece.y][x + this.piece.x] = value;
+        }
+      });
+    });
+  }
 }
 
 export { Board };
