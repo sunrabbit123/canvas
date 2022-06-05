@@ -13,7 +13,7 @@ ctx.scale(BLOCK_SIZE, BLOCK_SIZE);
 export const moves = {
   [KEY.LEFT]: (p) => ({ ...p, x: p.x - 1 }),
   [KEY.RIGHT]: (p) => ({ ...p, x: p.x + 1 }),
-  [KEY.UP]: (p) => ({ ...p, y: p.y + 1 }),
+  [KEY.DOWN]: (p) => ({ ...p, y: p.y + 1 }),
 };
 
 let board = new Board(COLS, ROWS);
@@ -31,6 +31,13 @@ document.getElementById("play").addEventListener("click", play);
 document.addEventListener("keydown", (event) => {
   const { keyCode } = event;
 
+  if (keyCode === KEY.SPACE) {
+    // hardDrop
+    while (board.valid(p)) {
+      board.piece.move(p);
+      p = moves[KEY.DOWN](board.piece);
+    }
+  }
   if (moves[keyCode]) {
     // 이벤트 버블링을 막는다.
     event.preventDefault();
