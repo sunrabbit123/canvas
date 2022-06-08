@@ -1,7 +1,3 @@
-import { COLS, BLOCK_SIZE, ROWS, KEY } from "./constants.js";
-import { Board } from "./board.js";
-import { Piece } from "./piece.js";
-
 const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");
 
@@ -10,14 +6,16 @@ ctx.canvas.height = ROWS * BLOCK_SIZE;
 
 ctx.scale(BLOCK_SIZE, BLOCK_SIZE);
 
-export const moves = {
+let board = new Board(COLS, ROWS);
+
+const moves = {
   [KEY.LEFT]: (p) => ({ ...p, x: p.x - 1 }),
   [KEY.RIGHT]: (p) => ({ ...p, x: p.x + 1 }),
   [KEY.DOWN]: (p) => ({ ...p, y: p.y + 1 }),
   [KEY.SPACE]: (p) => ({ ...p, y: p.y + 1 }),
+  [KEY.UP]: (p) => board.rotate(p, ROTATION.RIGHT),
+  [KEY.Z]: (p) => board.rotate(p, ROTATION.LEFT),
 };
-
-let board = new Board(COLS, ROWS);
 
 function play() {
   board.reset();

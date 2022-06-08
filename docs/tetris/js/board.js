@@ -71,9 +71,10 @@ class Board {
         p.shape.reverse();
       }
     }
-
     return p;
   }
 }
 
-export { Board };
+{
+  Board;
+}
