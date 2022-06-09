@@ -1,16 +1,35 @@
 class Board {
-  constructor(COLS, ROWS) {
-    this.COLS = COLS;
-    this.ROWS = ROWS;
+  constructor(ctx, ctxNext) {
+    this.ctx = ctx;
+    this.ctxNext = ctxNext;
+    this.init();
   }
-  grid;
+
+  init() {
+    // Calculate size of canvas from constants.
+    this.ctx.canvas.width = COLS * BLOCK_SIZE;
+    this.ctx.canvas.height = ROWS * BLOCK_SIZE;
+
+    // Scale so we don't need to give size on every draw.
+    this.ctx.scale(BLOCK_SIZE, BLOCK_SIZE);
+  }
 
   reset() {
-    this.grid = this.getEmptyBoard();
+    this.grid = this.getEmptyGrid();
+    this.piece = new Piece(this.ctx);
+    this.piece.setStartingPosition();
+    this.getNewPiece();
   }
 
-  getEmptyBoard() {
-    return Array.from({ length: this.ROWS }, () => Array(this.COLS).fill(0));
+  getNewPiece() {
+    const { width, height } = this.ctxNext.canvas;
+    this.next = new Piece(this.ctxNext);
+    this.ctxNext.clearRect(0, 0, width, height);
+    this.next.draw();
+  }
+
+  getEmptyGrid() {
+    return Array.from({ length: ROWS }, () => Array(COLS).fill(0));
   }
 
   valid(p) {
@@ -24,14 +43,16 @@ class Board {
       });
     });
   }
+
   isInsideWalls(x, y) {
-    return x >= 0 && x < this.COLS && y <= this.ROWS;
+    return x >= 0 && x < COLS && y <= ROWS;
   }
   notOccupied(x, y) {
     return this.grid[y] && this.grid[y][x] === 0;
   }
   drop() {
     let p = moves[KEY.DOWN](this.piece);
+
     if (this.valid(p)) {
       this.piece.move(p);
     } else {
@@ -57,6 +78,32 @@ class Board {
       });
     });
   }
+  clearLines() {
+    let lines = 0;
+
+    this.grid.forEach((row, y) => {
+      if (row.every((value) => value > 0)) {
+        lines++;
+
+        this.grid.splice(y, 1);
+
+        this.grid.unshift(Array(COLS).fill(0));
+      }
+    });
+
+    if (lines > 0) {
+      account.score += this.getLinesClearedPoints(lines);
+      account.lines += lines;
+
+      if (account.lines >= LINES_PER_LEVEL) {
+        account.level++;
+
+        account.lines -= LINES_PER_LEVEL;
+
+        time.level = LEVEL[account.level];
+      }
+    }
+  }
   rotate(piece, direction) {
     let p = JSON.parse(JSON.stringify(piece));
     if (!piece.hardDropped) {
@@ -73,8 +120,18 @@ class Board {
     }
     return p;
   }
-}
-
-{
-  Board;
+  draw() {
+    this.piece.draw();
+    this.drawBoard();
+  }
+  drawBoard() {
+    this.grid.forEach((row, y) => {
+      row.forEach((value, x) => {
+        if (value > 0) {
+          this.ctx.fillStyle = COLORS[value];
+          this.ctx.fillRect(x, y, 1, 1);
+        }
+      });
+    });
+  }
 }
