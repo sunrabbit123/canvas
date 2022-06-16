@@ -7,4 +7,3 @@
 1. [홈](https://sunrabbit123.github.io/canvas/)
 2. [테트리스](https://sunrabbit123.github.io/canvas/tetris/)
 3. [Raise Trees](https://sunrabbit123.github.io/canvas/raise_tree/)
-4. [지뢰찾기](https://sunrabbit123.github.io/canvas/minesweeper/)(미완)
