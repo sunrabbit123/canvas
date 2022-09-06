@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import RaiseTree from "./raise_tree";
 
 const NavBlcok = styled.ul`
-  margin-top: 40vh;
   width: 95%;
   text-align: center;
   display: block;
-  margin: 50vh, auto, auto, auto;
   list-style: none;
+  margin: 0;
 `;
 const NavItem = styled.li`
   display: inline;
@@ -44,6 +44,9 @@ function App() {
           </NavBlcok>
         </nav>
       </header>
+      <article>
+        <RaiseTree />
+      </article>
     </>
   );
 }
