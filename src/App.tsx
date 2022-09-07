@@ -29,10 +29,24 @@ const Link = styled.a`
     color: #000;
   }
 `;
+
+const Content = styled.article`
+  height: 100%;
+  width: 100%;
+`;
+const Container = styled.div`
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr 9fr;
+`;
+const Header = styled.header`
+  grid-row: 1;
+`;
 function App() {
   return (
-    <>
-      <header>
+    <Container>
+      <Header>
         <nav>
           <NavBlcok>
             <NavItem>
@@ -43,11 +57,11 @@ function App() {
             </NavItem>
           </NavBlcok>
         </nav>
-      </header>
-      <article>
+      </Header>
+      <Content>
         <RaiseTree />
-      </article>
-    </>
+      </Content>
+    </Container>
   );
 }
 

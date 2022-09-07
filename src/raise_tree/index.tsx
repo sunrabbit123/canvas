@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Canvas = styled.canvas`
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 90%;
 `;
 const SnowCanvas = styled(Canvas)`
   z-index: 2;
