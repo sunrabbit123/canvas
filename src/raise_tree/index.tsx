@@ -1,13 +1,23 @@
+import React, { MouseEventHandler } from "react";
 import styled from "styled-components";
+import { Stage } from "@inlet/react-pixi";
 
-const Canvas = styled.canvas`
-  position: absolute;
-  width: 100%;
-  height: 90%;
+const PixiBox = styled.div`
+  margin: 0 auto;
+  width: 500px;
 `;
-const SnowCanvas = styled(Canvas)`
-  z-index: 2;
-`;
+
+const Canvas: React.FC<{
+  WIDTH: number;
+  HEIGHT: number;
+  fn: MouseEventHandler<HTMLDivElement>;
+}> = (props) => {
+  return (
+    <PixiBox onClick={props.fn}>
+      <Stage width={props.WIDTH} height={props.HEIGHT} />
+    </PixiBox>
+  );
+};
 
 const BtnBlock = styled.div`
   position: absolute;
@@ -17,10 +27,13 @@ const BtnBlock = styled.div`
 `;
 
 const RaiseTree: React.FC = () => {
+  const WIDTH = 500;
+  const HEIGHT = 500;
+
+  const drawTree = () => {};
   return (
     <>
-      <Canvas></Canvas>
-      <SnowCanvas></SnowCanvas>
+      <Canvas WIDTH={WIDTH} HEIGHT={HEIGHT} fn={drawTree}></Canvas>
       <BtnBlock></BtnBlock>
     </>
   );

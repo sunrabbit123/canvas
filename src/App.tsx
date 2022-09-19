@@ -31,7 +31,7 @@ const Link = styled.a`
 `;
 
 const Content = styled.article`
-  height: 100%;
+  grid-row: 2 / 10;
   width: 100%;
 `;
 const Container = styled.div`
@@ -46,7 +46,7 @@ const Header = styled.header`
 function App() {
   return (
     <Container>
-      <Header>
+      <Header id="header">
         <nav>
           <NavBlcok>
             <NavItem>
